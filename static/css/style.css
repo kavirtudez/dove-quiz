@@ -13,6 +13,7 @@
     --dove-success: #2ecc71;
     --dove-warning: #f39c12;
     --dove-info: #3498db;
+    --dove-light-blue-bg: #e3f0ff; /* Light blue for button background */
 
     --border-radius-sm: 4px;
     --border-radius-md: 8px;
@@ -34,8 +35,9 @@ body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.7;
     color: var(--dove-text);
-    background: linear-gradient(180deg, var(--dove-white) 0%, var(--dove-grey-light) 40%, var(--dove-grey-light) 100%);
-    background-repeat: no-repeat;
+    /* Apply the hero gradient to the entire body */
+    background: linear-gradient(120deg, #e3f0ff 0%, #b3d8fd 50%, #e3f0ff 100%);
+    background-attachment: fixed; /* Make background fixed during scroll */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -151,7 +153,7 @@ main {
 
 /* Cards */
 .card {
-    background-color: var(--dove-white);
+    background-color: var(--dove-white); /* Ensure cards remain white */
     border-radius: var(--border-radius-lg);
     box-shadow: var(--box-shadow);
     padding: 25px 30px;
@@ -208,6 +210,26 @@ main {
     color: var(--dove-text);
 }
 
+/* Style for .hero-btn-explore specifically */
+.hero-btn-explore {
+    background: var(--dove-light-blue-bg) !important; /* Light blue background */
+    color: var(--dove-blue) !important; /* Blue font color */
+    border: 2px solid var(--dove-blue) !important; /* Blue border to match quiz button style */
+}
+
+.hero-btn-explore:hover {
+    background: #d0e6ff !important; /* Slightly darker light blue on hover */
+    color: var(--dove-blue-dark) !important; /* Darker blue font on hover */
+    border-color: var(--dove-blue-dark) !important;
+}
+
+.hero-btn-explore i {
+    color: var(--dove-blue) !important; /* Ensure icon also takes the blue color */
+}
+
+.hero-btn-explore:hover i {
+    color: var(--dove-blue-dark) !important; /* Darker icon color on hover */
+}
 
 .btn-secondary {
     background-color: var(--dove-grey-light);

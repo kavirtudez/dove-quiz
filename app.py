@@ -700,7 +700,12 @@ def quiz_results():
                            classified_skin_type_prob=answers.get('classified_skin_type_prob')
                         )
 
-@app.route('/favicon.ico')def favicon():    return app.send_static_file('images/logo.png')
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('images/logo.png')
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    # Try with explicit host, different port, and reloader off
+    print("Attempting to start Flask server on http://0.0.0.0:5001...")
+    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
+ 

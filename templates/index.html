@@ -5,10 +5,8 @@
 {% block content %}
 <style>
 .hero-section-bg {
-    /* background: linear-gradient(120deg, #e3f0ff 0%, #b3d8fd 50%, #e3f0ff 100%); */ /* Replaced by animation */
-    background: linear-gradient(-45deg, #ffffff, #e3f0ff, #b3d8fd, #ffffff);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    /* This class is no longer needed for the background, as it's on the body */
+    /* background: linear-gradient(120deg, #e3f0ff 0%, #b3d8fd 50%, #e3f0ff 100%); */
     min-height: 420px;
     display: flex;
     align-items: center;
@@ -18,19 +16,6 @@
     overflow: hidden;
     margin-bottom: 48px;
 }
-
-@keyframes gradientBG {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
 .hero-card {
     background: rgba(255,255,255,0.98);
     border-radius: 28px;
@@ -86,19 +71,22 @@
     letter-spacing: 0.5px;
 }
 .hero-btn-explore {
-    background: #fcee8a;
-    color: #222b45;
-    border: 2px solid #fcee8a;
+    /* Styles moved to style.css, remove from here if they were duplicated */
+    /* background: #fcee8a; */
+    /* color: #222b45; */
+    /* border: 2px solid #fcee8a; */
     margin-right: 8px;
 }
 .hero-btn-explore:hover {
-    background: #fffbe6;
-    color: #0073e6;
-    border-color: #ffe066;
+    /* Styles moved to style.css, remove from here if they were duplicated */
+    /* background: #fffbe6; */
+    /* color: #0073e6; */
+    /* border-color: #ffe066; */
     transform: translateY(-2px) scale(1.03);
 }
 .hero-btn-explore i {
-    color: #0073e6;
+    /* Styles moved to style.css, remove from here if they were duplicated */
+    /* color: #0073e6; */
     margin-right: 10px;
     font-size: 1.3em;
 }
