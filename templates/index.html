@@ -5,7 +5,10 @@
 {% block content %}
 <style>
 .hero-section-bg {
-    background: linear-gradient(120deg, #e3f0ff 0%, #b3d8fd 50%, #e3f0ff 100%);
+    /* background: linear-gradient(120deg, #e3f0ff 0%, #b3d8fd 50%, #e3f0ff 100%); */ /* Replaced by animation */
+    background: linear-gradient(-45deg, #ffffff, #e3f0ff, #b3d8fd, #ffffff);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     min-height: 420px;
     display: flex;
     align-items: center;
@@ -15,6 +18,19 @@
     overflow: hidden;
     margin-bottom: 48px;
 }
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .hero-card {
     background: rgba(255,255,255,0.98);
     border-radius: 28px;

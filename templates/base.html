@@ -17,13 +17,34 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
+    <style>
+        /* Navbar logo image style */
+        .navbar-logo-img {
+            height: 30px; /* Adjust as needed */
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        /* Navbar hover effects */
+        .header-container .logo,
+        .header-container nav ul li a {
+            text-decoration: none; /* Remove default underline */
+            padding-bottom: 2px; /* Space for the underline */
+            transition: border-bottom-color 0.3s ease-in-out;
+        }
+        .header-container .logo:hover,
+        .header-container nav ul li a:hover {
+            border-bottom: 2px solid white;
+        }
+    </style>
+    
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header>
         <div class="header-container">
             <a href="{{ url_for('home') }}" class="logo">
-                <i class="fas fa-cut"></i> AI-Powered Dove Glow
+                <img src="{{ url_for('static', filename='images/title logo.png') }}" alt="Logo" class="navbar-logo-img">
+                AI-Powered Dove Glow
             </a>
             <nav>
                 <ul>
