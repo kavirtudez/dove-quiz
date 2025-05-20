@@ -700,9 +700,7 @@ def quiz_results():
                            classified_skin_type_prob=answers.get('classified_skin_type_prob')
                         )
 
-@app.route('/favicon.ico')
-def favicon():
-    return app.send_static_file('favicon.ico')
+@app.route('/favicon.ico')def favicon():    return app.send_static_file('images/logo.png')
 
 if __name__ == '__main__':
     app.run(debug=True) 
