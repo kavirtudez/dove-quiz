@@ -1,0 +1,853 @@
+/* Dove Inspired Theme - Consolidated & Updated */
+:root {
+    --dove-blue: #0073e6; /* Main Dove blue */
+    --dove-blue-dark: #005cb3; /* Darker blue for accents/hovers */
+    --dove-gold: #FCEE8A; /* Lighter yellow, as requested */
+    --dove-white: #ffffff;
+    --dove-grey-light: #f0f0f0; /* Light grey for backgrounds/borders */
+    --dove-grey-medium: #cccccc; /* Medium grey for borders */
+    --dove-grey-dark: #333333; /* Dark grey for text */
+    --dove-text: #1F2937; /* Primary text color */
+    --dove-text-light: #6B7280; /* Secondary text color */
+    --dove-error: #e74c3c;
+    --dove-success: #2ecc71;
+    --dove-warning: #f39c12;
+    --dove-info: #3498db;
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease-in-out;
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.7;
+    color: var(--dove-text);
+    background: linear-gradient(180deg, var(--dove-white) 0%, var(--dove-grey-light) 40%, var(--dove-grey-light) 100%);
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1100px; /* Slightly reduced for a tighter feel */
+    width: 90%;
+    margin: 0 auto;
+    padding: 25px 20px;
+    flex-grow: 1;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--dove-blue);
+}
+
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.9rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; }
+
+p {
+    margin-bottom: 1rem;
+    color: var(--dove-text-light);
+}
+
+a {
+    color: var(--dove-blue);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--dove-blue-dark);
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    background-color: var(--dove-blue); /* Solid blue as requested */
+    color: var(--dove-white);
+    padding: 1rem 0;
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--dove-white); /* Explicitly white */
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    margin-right: 10px;
+    font-size: 1.7rem;
+    color: var(--dove-white); /* Explicitly white */
+}
+
+/* Navigation */
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: var(--dove-white); /* Explicitly white */
+    padding: 8px 12px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none; /* Ensure no default underline */
+    border-bottom: 2px solid transparent; /* For hover effect */
+}
+
+nav ul li a:hover, nav ul li a.active {
+    background-color: rgba(0, 0, 0, 0.15); /* Darker overlay - simple hover */
+    border-bottom: 2px solid var(--dove-white); /* White underline on hover/active - simple hover */
+    color: var(--dove-white);
+}
+nav ul li a i {
+    margin-right: 6px;
+    color: var(--dove-white); /* Explicitly white */
+}
+
+/* Main Content Area */
+main {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Cards */
+.card {
+    background-color: var(--dove-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow);
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    border: 1px solid var(--dove-grey-medium);
+}
+
+.card-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--dove-grey-light);
+    padding-bottom: 15px;
+}
+.card-header h1, .card-header h2 {
+    margin-bottom: 0.5rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn-primary {
+    background-color: var(--dove-blue);
+    color: var(--dove-white);
+}
+.btn-primary:hover {
+    background-color: var(--dove-blue-dark);
+    color: var(--dove-white);
+    box-shadow: var(--box-shadow-lg);
+    transform: translateY(-2px);
+}
+
+/* Specifically for hero button as per instruction */
+.hero-section .btn-primary {
+    background-color: var(--dove-gold);
+    color: var(--dove-text); /* Dark text for contrast on gold */
+}
+.hero-section .btn-primary:hover {
+    background-color: #f9e770; /* Slightly darker gold */
+    color: var(--dove-text);
+}
+
+
+.btn-secondary {
+    background-color: var(--dove-grey-light);
+    color: var(--dove-blue);
+    border: 1px solid var(--dove-grey-medium);
+}
+.btn-secondary:hover {
+    background-color: #e0e0e0; /* Slightly darker grey */
+    color: var(--dove-blue-dark);
+    border-color: #b0b0b0;
+}
+
+.btn-retake { /* For quiz results page (as per existing logic) */
+    background-color: var(--dove-blue-dark);
+    color: var(--dove-white);
+}
+.btn-retake:hover {
+    background-color: var(--dove-blue);
+}
+
+/* File Upload Styling */
+.file-upload-label { /* Changed from .file-upload to be specific to the label */
+    display: block;
+    padding: 30px;
+    border: 2px dashed var(--dove-grey-medium);
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background-color: #fdfdfd;
+    margin-bottom: 20px;
+    position: relative; /* For positioning preview */
+}
+.file-upload-label:hover {
+    border-color: var(--dove-blue);
+    background-color: #f5faff;
+}
+.file-upload-label .upload-icon {
+    font-size: 3rem;
+    color: var(--dove-blue);
+    margin-bottom: 15px;
+    display: block; /* Ensure it's block for margin to work */
+}
+.file-upload-label h3 {
+    margin-top: 0; /* Reset margin for h3 inside label */
+    margin-bottom: 10px;
+    color: var(--dove-text);
+}
+.file-upload-label p {
+    margin-bottom: 5px;
+    color: var(--dove-text-light);
+}
+
+.small-text { /* Helper class */
+    font-size: 0.85rem;
+    color: var(--dove-text-light);
+    margin-top: 5px;
+}
+
+/* Image Preview Styling */
+.uploaded-image-preview { /* For preview inside upload box */
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    margin: 10px auto; /* Center it */
+    display: block; /* Ensure it's block for centering */
+    border: 1px solid var(--dove-grey-light);
+}
+
+/* Uploaded Image Display on Results */
+.uploaded-image { /* For image shown on results section */
+    display: block;
+    margin: 25px auto; /* Increased top/bottom margin */
+    max-width: 90%;   /* Slightly less than 100% to ensure padding from card edges */
+    width: auto; /* Allow image to shrink if needed */
+    height: auto;      /* Maintain aspect ratio */
+    max-height: 300px; /* Adjusted max height, was 350px */
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-lg); /* Enhanced shadow */
+    object-fit: contain; 
+    border: 1px solid var(--dove-grey-medium); /* Clearer border */
+    background-color: var(--dove-white); /* Ensure background for transparent images */
+    padding: 5px; /* Small padding around the image inside the border */
+}
+
+/* Results Section */
+.result-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--dove-grey-light);
+}
+.result-box {
+    background-color: #f0f8ff; /* Light alice blue */
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    margin-bottom: 25px;
+    border: 1px solid var(--dove-blue);
+}
+.result-box h3 {
+    color: var(--dove-blue);
+    margin-bottom: 8px;
+}
+.result-box .detected-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dove-blue-dark);
+}
+
+.care-tips-section ul {
+    list-style: none; /* Remove default bullets */
+    padding-left: 0;
+}
+.care-tips-section li {
+    background-color: #fdfdfd;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius-sm);
+    border-left: 4px solid var(--dove-blue);
+    color: var(--dove-text);
+    transition: var(--transition);
+}
+.care-tips-section li:hover {
+    background-color: #e9f5ff;
+    transform: translateX(5px);
+}
+.care-tips-section li::before {
+    content: "\f00c"; /* FontAwesome check icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 10px;
+    color: var(--dove-blue);
+}
+
+/* === Styles for Product Display (mimicking quiz_results.html) === */
+.product-display-container { /* Was .product-images-container, for single product on details page */
+    display: flex;
+    justify-content: center; /* Center the single card */
+    margin: 25px 0;
+}
+
+.product-card { /* Based on inline styles from quiz_results.html */
+    width: 220px; /* Slightly wider for better text fit, was 180px */
+    text-align: center;
+    background: #f8f9fa; /* Light background from quiz_results */
+    border-radius: var(--border-radius-md); /* 8px */
+    padding: 20px; /* Was 15px, increased for a bit more space */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Slightly enhanced shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 420px; /* Adjusted min-height for content */
+    border: 1px solid var(--dove-grey-light);
+}
+
+.product-card img { /* Based on inline styles from quiz_results.html */
+    max-width: 100%;
+    height: 180px; /* Was 150px, slightly taller for better proportion */
+    object-fit: contain;
+    margin-bottom: 15px; /* Was 10px */
+    border-radius: var(--border-radius-sm);
+    background-color: var(--dove-white); /* White background for product image itself */
+}
+
+.product-card .product-name {
+    font-size: 1rem; /* Was 0.9em */
+    margin: 0 0 8px 0; /* Was 5px */
+    font-weight: 600; /* Was 500 */
+    color: var(--dove-blue-dark); /* Was #0056b3 */
+    line-height: 1.3;
+    min-height: 40px; /* Approx 2 lines */
+}
+
+.product-card .product-description { /* For short desc below name */
+    font-size: 0.85rem; /* Was product-desc class with 0.8em */
+    color: var(--dove-text-light);
+    margin-bottom: 12px;
+    line-height: 1.4;
+    min-height: 50px; /* Approx 3 lines */
+    flex-grow: 1; /* Allow description to take available space */
+}
+
+.product-card .recommendation-reason { /* Style for the 'Why it's great' text */
+    font-size: 0.8rem;
+    color: var(--dove-text);
+    background-color: #e9f5ff; /* Light blue highlight from old .product-recommendation-card */
+    padding: 8px 12px; /* Reduced padding */
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--dove-blue);
+    margin-top: auto; /* Push to bottom of card content area */
+    text-align: left;
+}
+/* === End Styles for Product Display === */
+
+/* Remove or comment out old .product-recommendation-card styles */
+/*
+.product-recommendation-card {
+    background-color: var(--dove-white); 
+    border: 1px solid var(--dove-grey-light);
+    border-radius: var(--border-radius-lg); 
+    padding: 20px; 
+    margin: 25px auto; 
+    max-width: 320px; 
+    text-align: center; 
+    box-shadow: var(--box-shadow); 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    min-height: 380px; 
+}
+.product-recommendation-card img {
+    max-width: 100%; 
+    height: 180px;   
+    object-fit: contain; 
+    margin-bottom: 15px;
+    border-radius: var(--border-radius-sm);
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fdfdfd; 
+}
+.product-recommendation-card h4 { 
+    color: var(--dove-blue-dark);
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+}
+.product-recommendation-card .product-description {
+    font-size: 0.95rem;
+    color: var(--dove-text-light);
+    margin-bottom: 12px;
+}
+.product-recommendation-card .recommendation-reason {
+    font-size: 0.9rem;
+    color: var(--dove-text);
+    background-color: #e9f5ff; 
+    padding: 10px 15px;
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--dove-blue);
+}
+*/
+
+/* Flash Messages */
+.flash-messages {
+    position: fixed;
+    top: 80px; /* Below sticky header */
+    right: 20px;
+    z-index: 1001;
+    width: auto;
+    max-width: 350px;
+}
+.flash {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-lg);
+    display: flex;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    color: var(--dove-white);
+}
+.flash i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+.flash-error { background-color: var(--dove-error); }
+.flash-success { background-color: var(--dove-success); }
+.flash-warning { background-color: var(--dove-warning); }
+.flash-info { background-color: var(--dove-info); }
+
+
+/* Footer */
+footer {
+    background-color: var(--dove-blue-dark);
+    color: var(--dove-grey-light);
+    text-align: center;
+    padding: 25px 0;
+    margin-top: auto; /* Pushes footer to bottom */
+}
+.footer-content p {
+    margin: 0.3rem 0;
+    color: var(--dove-grey-light); /* Override default p color */
+}
+.footer-content .fa-heart {
+    color: #f6546a; /* Keep the red heart */
+}
+
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+
+/* Hero Section on Index Page - Moved from inline and enhanced */
+.hero-section {
+    text-align: center;
+    padding: 50px 20px; /* Increased padding */
+    margin-bottom: 40px;
+    border-radius: var(--border-radius-lg);
+}
+.hero-section .card { /* Card within hero */
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent card for depth if body has gradient */
+    border: none;
+    box-shadow: var(--box-shadow-lg); /* Softer, larger shadow for hero card */
+    padding: 30px 40px;
+}
+.hero-section h1 {
+    font-size: 3rem; /* Larger hero title */
+    color: var(--dove-blue-dark);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+.hero-section .lead {
+    font-size: 1.25rem; /* Slightly larger lead */
+    color: var(--dove-text);
+    max-width: 750px;
+    margin: 0 auto 30px auto;
+    line-height: 1.8;
+}
+.hero-section .btn {
+    padding: 14px 32px; /* Larger buttons in hero */
+    font-size: 1.1rem;
+    margin: 5px;
+}
+
+/* Features Section on Index Page - Styles enhanced */
+.features-header {
+    text-align: center;
+    margin-bottom: 40px; /* Increased spacing */
+}
+.features-header h2 {
+    font-size: 2.2rem;
+    color: var(--dove-blue-dark);
+}
+
+.features-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Increased gap */
+    margin-bottom: 40px;
+}
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 35px 30px; /* Increased padding */
+    border-radius: var(--border-radius-lg);
+    background-color: var(--dove-white);
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Smooth transition */
+    border: 1px solid var(--dove-grey-light); /* Softer border */
+}
+.feature-card:hover {
+    transform: translateY(-8px); /* More pronounced hover lift */
+    box-shadow: var(--box-shadow-lg);
+}
+.feature-card .icon-wrapper {
+    font-size: 3rem; /* Larger icon */
+    width: 80px; /* Larger circle */
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+    background-color: var(--dove-blue); /* Changed to solid blue */
+    color: var(--dove-white); /* White icon */
+    margin-bottom: 25px;
+    transition: background-color 0.3s ease-out, transform 0.3s ease-out;
+    display: flex; /* For centering icon inside */
+    align-items: center;
+    justify-content: center;
+}
+.feature-card .icon-wrapper i {
+    line-height: 1; /* Ensured for FA icons */
+    transition: transform 0.3s ease-out;
+}
+
+.feature-card:hover .icon-wrapper {
+    background-color: var(--dove-blue-dark); /* Darker blue on hover */
+    transform: scale(1.1); /* Icon wrapper scales */
+}
+.feature-card:hover .icon-wrapper i {
+    transform: rotate(10deg); /* Slight icon rotation on hover */
+}
+
+.feature-card h3 {
+    font-size: 1.5rem; /* Slightly larger */
+    color: var(--dove-blue-dark);
+    margin-bottom: 12px;
+}
+.feature-card p {
+    font-size: 0.95rem;
+    margin-bottom: 20px; /* Increased spacing */
+    color: var(--dove-text-light);
+    flex-grow: 1; /* Allows button to be pushed to bottom */
+}
+.feature-card .btn {
+    margin-top: auto; 
+    background-color: transparent;
+    color: var(--dove-blue);
+    border: 2px solid var(--dove-blue);
+    padding: 10px 24px;
+}
+.feature-card .btn:hover {
+    background-color: var(--dove-blue);
+    color: var(--dove-white);
+    border-color: var(--dove-blue);
+}
+
+
+/* How It Works Section - Styles moved from inline and enhanced */
+.how-it-works {
+    text-align: center;
+    padding: 40px 0;
+    background-color: var(--dove-white); /* Give this section a solid background */
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 30px;
+    box-shadow: var(--box-shadow);
+}
+
+.how-it-works .card-header {
+    border-bottom: none;
+    margin-bottom: 30px;
+}
+.how-it-works .card-header h2 {
+    font-size: 2.2rem;
+    color: var(--dove-blue-dark);
+}
+
+.steps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px; /* Gap between steps */
+}
+.step {
+    flex-basis: calc(33.333% - 30px); /* Adjust for 3 steps, considering gap */
+    min-width: 260px;
+    padding: 25px;
+    background-color: var(--dove-grey-light); /* Lighter background for steps */
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    display: flex; /* For aligning icon and content */
+    align-items: flex-start;
+    text-align: left; /* Align text to left within step */
+}
+.step:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-lg);
+}
+.step-icon {
+    font-size: 1.5rem; /* Number size */
+    font-weight: 700;
+    color: var(--dove-white);
+    background-color: var(--dove-blue);
+    min-width: 50px; /* Larger circle for number */
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+    flex-shrink: 0;
+    text-align: center; /* Center the number */
+    transition: var(--transition);
+}
+.step:hover .step-icon {
+    background-color: var(--dove-blue-dark);
+    transform: rotate(360deg); /* Fun rotation on hover */
+}
+.step-content h3 {
+    font-size: 1.3rem;
+    color: var(--dove-blue-dark);
+    margin-top: 0; /* Align with top of icon number */
+    margin-bottom: 10px;
+}
+.step-content p {
+    font-size: 0.9rem;
+    color: var(--dove-text-light);
+    margin-bottom: 0;
+}
+
+
+/* Quiz Specific Styling (Copied & adapted from instructions, ensure no conflict) */
+.quiz-container {
+    max-width: 700px;
+    margin: 2rem auto;
+}
+.quiz-progress-bar {
+    width: 100%;
+    background-color: var(--dove-grey-medium);
+    border-radius: var(--border-radius-sm);
+    height: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.quiz-progress {
+    width: 0%; /* Will be set by JS or inline style */
+    height: 100%;
+    background-color: var(--dove-blue);
+    transition: width 0.5s ease-in-out;
+}
+.quiz-question-card .card-header {
+    background-color: var(--dove-blue);
+    color: var(--dove-white);
+    padding: 15px 20px;
+    border-top-left-radius: var(--border-radius-lg);
+    border-top-right-radius: var(--border-radius-lg);
+    margin: -25px -30px 20px -30px; /* Adjust to bleed */
+}
+.quiz-question-card .card-header h2 {
+    color: var(--dove-white);
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+.quiz-question-card .question-text {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: var(--dove-text);
+    line-height: 1.6;
+}
+.quiz-options label { /* For quiz options */
+    display: flex; /* As requested */
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f9f9f9;
+    border: 1px solid var(--dove-grey-light);
+    border-radius: var(--border-radius-md);
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.quiz-options label:hover {
+    background-color: #eef5ff;
+    border-color: var(--dove-blue);
+}
+.quiz-options input[type="radio"], 
+.quiz-options input[type="checkbox"] {
+    margin-right: 15px; /* As requested */
+    transform: scale(1.3); /* As requested */
+    accent-color: var(--dove-blue);
+}
+.quiz-options .slider-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.quiz-options input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+    accent-color: var(--dove-blue);
+}
+.quiz-options .slider-value {
+    text-align: center;
+    font-weight: 500;
+    color: var(--dove-blue-dark);
+    margin-top: 5px;
+}
+.quiz-navigation {
+    display: flex;
+    justify-content: space-between; /* If prev button is added */
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* Quiz Results Specific - Ensuring no conflicts with general styles */
+.quiz-results-page .persona-card {
+    background: linear-gradient(135deg, var(--dove-blue), var(--dove-blue-dark));
+    color: var(--dove-white);
+    padding: 30px;
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 30px;
+    text-align: center;
+}
+.quiz-results-page .persona-card h2 {
+    color: var(--dove-white);
+    font-size: 2rem;
+}
+.quiz-results-page .persona-card .persona-description {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+.quiz-results-page .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+.quiz-results-page .product-card { /* Different from .product-recommendation-card */
+    background-color: var(--dove-white);
+    border: 1px solid var(--dove-grey-light);
+}
+.quiz-results-page .product-card h3 {
+    color: var(--dove-blue);
+}
+.quiz-results-page .share-section {
+    margin-top: 30px;
+    text-align: center;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        padding-bottom: 10px;
+    }
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+    }
+    nav ul li {
+        margin: 8px 0;
+        text-align: center;
+    }
+    nav ul li a {
+        display: block;
+        padding: 10px;
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.7rem; }
+    h3 { font-size: 1.3rem; }
+
+    .features-container, .steps, .product-grid {
+        grid-template-columns: 1fr; /* Stack on smaller screens */
+    }
+    .step {
+        margin-bottom: 20px;
+    }
+    .flash-messages {
+        width: calc(100% - 40px);
+        right: 20px;
+        left: 20px;
+        max-width: none;
+    }
+}
+
+/* Remove old conflicting styles if any were missed - ensure this is the end */
+/* Styles from the very beginning of the old file that might conflict are now removed by replacing the content */ 

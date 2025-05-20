@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Hair Detector AI - Hair Type Classification{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    {% if not result %}
+    <div class="card-header">
+        <h1>Hair Type Classification</h1>
+        <p>Upload a clear image of your hair. Our AI will analyze it to determine if it's curly, wavy, or straight, and offer personalized Dove product advice.</p>
+    </div>
+
+    <form id="hairTypeForm" action="{{ url_for('detect_hair_type') }}" method="POST" enctype="multipart/form-data">
+        <label for="hairImageInput" class="file-upload-label">
+            <img id="hairImagePreview" src="#" alt="Hair Preview" class="uploaded-image-preview" style="display: none;" />
+            <i id="hairUploadIcon" class="fas fa-cloud-upload-alt upload-icon"></i>
+            <h3 id="hairUploadTitle">Upload Hair Image</h3>
+            <p id="hairUploadText">Click here to select an image or drag and drop</p>
+            <p class="small-text">Supports: JPG, JPEG, PNG (Max 16MB)</p>
+        </label>
+        <input type="file" name="image" id="hairImageInput" accept=".jpg,.jpeg,.png" style="display: none;" onchange="previewImage(event, 'hairImagePreview', 'hairUploadIcon', 'hairUploadTitle', 'hairUploadText')">
+        
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-microscope"></i> Analyze Hair Type
+            </button>
+        </div>
+    </form>
+    
+    {% else %}
+    {# Results Section #}
+    <div class="result-section">
+        <div class="card-header" style="text-align: center;">
+            <h1>Your Hair Analysis</h1>
+        </div>
+
+        {% if image_path %}
+        <img src="{{ url_for('static', filename=image_path) }}" class="uploaded-image" alt="Uploaded Hair Image">
+        {% endif %}
+        
+        <div class="result-box">
+            <h3>Detected Hair Type:</h3>
+            <p class="detected-value">{{ result }}</p>
+        </div>
+        
+        {% if product_recommendation %}
+        <div class="product-display-container">
+            <div class="product-card">
+                <h4>Recommended Dove Product:</h4>
+                {% if product_recommendation.image_filename %}
+                <img src="{{ url_for('static', filename='images/dove products/' + product_recommendation.image_filename) }}" alt="{{ product_recommendation.name }}">
+                {% endif %}
+                <div>
+                    <p class="product-name">{{ product_recommendation.name }}</p>
+                    <p class="product-description">{{ product_recommendation.description }}</p>
+                </div>
+                <p class="recommendation-reason"><strong>Why it's great for {{ result }}:</strong> {{ product_recommendation.reason }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="care-tips-section" style="margin-top: 30px;">
+            <h3>Caring for Your {{ result }}:</h3>
+            <ul>
+            {% if result == 'Straight Hair' %}
+                <li>Your straight hair is sleek! To maintain its beauty, use lightweight shampoos and conditioners like Dove Daily Moisture to avoid weighing it down.</li>
+                <li>Want a bit more oomph? Volumizing products can add lovely body and texture without compromising shine.</li>
+                <li>While your hair is naturally smooth, limit heat styling to prevent damage. A heat protectant spray is your best friend!</li>
+                <li>Explore texturizing sprays or mousses if you want to add a bit of playful dimension to your look.</li>
+            {% elif result == 'Wavy Hair' %}
+                <li>Embrace your beautiful waves! Enhance them with moisturizing products such as Dove Nourishing Rituals Restoring Ritual Shampoo & Conditioner.</li>
+                <li>Gently scrunch your hair when damp with a wave-enhancing mousse or cream to encourage definition.</li>
+                <li>Using a diffuser attachment on your hairdryer can help maintain wave pattern and reduce frizz.</li>
+                <li>Avoid heavy styling products that can flatten your waves. Opt for lightweight serums or sprays.</li>
+            {% elif result == 'Curly Hair' %}
+                <li>Your curls are gorgeous! Keep them hydrated and defined with deeply moisturizing products like the Dove Amplified Textures range.</li>
+                <li>Consider leave-in conditioners and curl creams to lock in moisture and enhance your natural curl pattern.</li>
+                <li>Detangle gently with a wide-tooth comb or your fingers when your hair is conditioned and wet to prevent breakage.</li>
+                <li>Protect your curls overnight by sleeping on a silk or satin pillowcase, or by using a satin bonnet.</li>
+            {% else %}
+                <li>Understanding your hair is the first step to great care. Explore products that cater to general hair health and hydration.</li>
+            {% endif %}
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{{ url_for('detect_hair_type') }}" class="btn btn-secondary">
+                <i class="fas fa-redo"></i> Detect Another Hair Type
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hairTypeForm = document.getElementById('hairTypeForm');
+        const hairImageInput = document.getElementById('hairImageInput');
+
+        if (hairTypeForm) {
+            hairTypeForm.addEventListener('submit', function(event) {
+                if (hairImageInput && hairImageInput.files.length === 0) {
+                    event.preventDefault(); // Stop form submission
+                    alert('Please upload an image of your hair first!');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %} 

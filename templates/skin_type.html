@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Hair & Skin Detector AI - Skin Type Classification{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    {% if not result %}
+    <div class="card-header">
+        <h1>Skin Type Classification</h1>
+        <p>Upload a clear image of your face. Our AI will analyze it to determine your skin type and offer personalized Dove product advice.</p>
+    </div>
+
+    <form id="skinTypeForm" action="{{ url_for('detect_skin_type') }}" method="POST" enctype="multipart/form-data">
+        <label for="skinImageInput" class="file-upload-label">
+            <img id="skinImagePreview" src="#" alt="Skin Preview" class="uploaded-image-preview" style="display: none;" />
+            <i id="skinUploadIcon" class="fas fa-cloud-upload-alt upload-icon"></i>
+            <h3 id="skinUploadTitle">Upload Face Image</h3>
+            <p id="skinUploadText">Click here to select an image or drag and drop</p>
+            <p class="small-text">Supports: JPG, JPEG, PNG (Max 16MB)</p>
+        </label>
+        <input type="file" name="image" id="skinImageInput" accept=".jpg,.jpeg,.png" style="display: none;" onchange="previewImage(event, 'skinImagePreview', 'skinUploadIcon', 'skinUploadTitle', 'skinUploadText')">
+        
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-microscope"></i> Analyze Skin Type
+            </button>
+        </div>
+    </form>
+
+    {% else %}
+    {# Results Section #}
+    <div class="result-section">
+        <div class="card-header" style="text-align: center;">
+            <h1>Your Skin Analysis</h1>
+        </div>
+
+        {% if image_path %}
+        <img src="{{ url_for('static', filename=image_path) }}" class="uploaded-image" alt="Uploaded Face Image">
+        {% endif %}
+        
+        <div class="result-box">
+            <h3>Detected Skin Type:</h3>
+            <p class="detected-value">{{ result }}</p>
+        </div>
+
+        {% if product_recommendation %}
+        <div class="product-display-container">
+            <div class="product-card">
+                <h4>Recommended Dove Product:</h4>
+                {% if product_recommendation.image_filename %}
+                <img src="{{ url_for('static', filename='images/dove products/' + product_recommendation.image_filename) }}" alt="{{ product_recommendation.name }}">
+                {% endif %}
+                <div>
+                    <p class="product-name">{{ product_recommendation.name }}</p>
+                    <p class="product-description">{{ product_recommendation.description }}</p>
+                </div>
+                <p class="recommendation-reason"><strong>Why it's great for {{ result }}:</strong> {{ product_recommendation.reason }}</p>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="care-tips-section" style="margin-top: 30px;">
+            <h3>Caring for Your {{ result }}:</h3>
+            <ul>
+            {% if result == 'Normal Skin' %}
+                <li>Your skin is naturally balanced, which is fantastic! Maintain it by cleansing gently, especially if not wearing makeup, with a product like Dove Beauty Bar.</li>
+                <li>Use lightweight moisturizers to keep your skin hydrated without feeling heavy.</li>
+                <li>Sunscreen is a daily essential to protect your skin's healthy glow and prevent future damage.</li>
+                <li>Consider occasional gentle exfoliation to keep your skin smooth and radiant.</li>
+            {% elif result == 'Oily Skin' %}
+                <li>Oily skin needs balance. Use a cleanser designed for oily skin, like Dove Men+Care Oil Control Face Wash, to manage excess sebum.</li>
+                <li>An oil-free, non-comedogenic moisturizer is key – don't skip it, as stripping oils can make skin produce more!</li>
+                <li>Look for products with ingredients like salicylic acid or tea tree oil for their clarifying properties.</li>
+                <li>Clay masks used once or twice a week can help absorb excess oil and refine pores.</li>
+            {% elif result == 'Dry Skin' %}
+                <li>Hydration is your mantra! Use a rich, creamy cleanser like Dove Sensitive Skin Beauty Bar that won't strip moisture.</li>
+                <li>Apply a nourishing moisturizer frequently, especially after cleansing and before bed. Look for ingredients like hyaluronic acid or ceramides.</li>
+                <li>Protect your skin from sun exposure, as dry skin can be more susceptible to dark spots. Daily SPF is crucial.</li>
+                <li>Avoid very hot showers, which can further dry out your skin. Lukewarm water is gentler.</li>
+            {% elif result == 'Combination Skin' %}
+                <li>Combination skin requires a targeted approach. Use a gentle, balancing cleanser like Dove Beauty Bar.</li>
+                <li>You might need different products for different zones – a lighter moisturizer on oily areas (like the T-zone) and a richer one on dry patches.</li>
+                <li>Regular, gentle exfoliation can help manage both oily and dry areas by removing dead skin cells.</li>
+                <li>Blotting papers are a great on-the-go solution for managing excess oil in the T-zone during the day.</li>
+            {% elif result == 'Sensitive Skin' %}
+                <li>Gentle care is paramount. Opt for hypoallergenic, fragrance-free products like Dove Sensitive Skin Beauty Bar to avoid irritation.</li>
+                <li>Always patch-test new products on a small area of skin before applying them to your entire face.</li>
+                <li>Simplify your routine. Fewer products often mean less chance of irritation.</li>
+                <li>Protect your skin from harsh environmental factors like sun, wind, and extreme temperatures.</li>
+            {% else %}
+                <li>Every skin is unique! Focus on gentle cleansing, daily moisturizing, and sun protection as a foundation for healthy skin.</li>
+            {% endif %}
+            </ul>
+        </div>
+        
+        {# Probability Analysis section removed as per instructions #}
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{{ url_for('detect_skin_type') }}" class="btn btn-secondary">
+                <i class="fas fa-redo"></i> Detect Another Skin Type
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const skinTypeForm = document.getElementById('skinTypeForm');
+        const skinImageInput = document.getElementById('skinImageInput');
+
+        if (skinTypeForm) {
+            skinTypeForm.addEventListener('submit', function(event) {
+                if (skinImageInput && skinImageInput.files.length === 0) {
+                    event.preventDefault(); // Stop form submission
+                    alert('Please upload an image of your face first!');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+
+{% block title %}Hair & Skin Health Quiz - {{ question_data.text|truncate(30) }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .quiz-container {
+        max-width: 700px;
+        margin: 30px auto;
+        padding: 40px 30px;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+        animation: fadeInQuiz 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes fadeInQuiz {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .quiz-question h2 {
+        font-size: 2.1em;
+        color: var(--dove-blue-dark, #005cb3);
+        margin-bottom: 18px;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        animation: fadeInQuiz 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .quiz-question p.question-text {
+        font-size: 1.18em;
+        margin-bottom: 28px;
+        line-height: 1.7;
+        text-align: center;
+        color: var(--dove-text-light);
+        animation: fadeInQuiz 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .options-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+    }
+    .options-list li {
+        flex: 0 1 240px;
+        min-width: 220px;
+        max-width: 260px;
+        margin: 0;
+        height: 90px;
+        display: flex;
+        align-items: stretch;
+        /* uniform height for all */
+    }
+    .options-list label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background: #f8f9fa;
+        padding: 0 18px;
+        border-radius: 14px;
+        border: 2px solid #e0e7ef;
+        cursor: pointer;
+        font-size: 1.08em;
+        font-weight: 500;
+        color: var(--dove-blue-dark);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        position: relative;
+        text-align: center;
+        will-change: transform;
+        min-height: 70px;
+        min-width: 180px;
+        max-width: 260px;
+        word-break: break-word;
+        white-space: normal;
+    }
+    .options-list input[type="radio"] {
+        display: none;
+    }
+    .options-list input[type="radio"]:checked + label {
+        background: #e3f0ff;
+        border-color: var(--dove-blue);
+        color: #003366;
+        box-shadow: 0 4px 16px rgba(0,115,230,0.10);
+        transform: scale(1.04);
+    }
+    .options-list label.selected {
+        background: #e3f0ff !important;
+        border-color: var(--dove-blue) !important;
+        color: #003366 !important;
+        box-shadow: 0 4px 16px rgba(0,115,230,0.10) !important;
+        transform: scale(1.04) !important;
+    }
+    .options-list label:hover {
+        background: #e9f5ff;
+        border-color: var(--dove-blue);
+        box-shadow: 0 4px 16px rgba(0,115,230,0.10);
+        transform: translateY(-2px) scale(1.03);
+    }
+    .btn-quiz-next {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        font-size: 1.18em;
+        margin-top: 30px;
+        border-radius: 25px;
+        background: var(--dove-blue);
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        transition: background 0.2s, transform 0.2s;
+        letter-spacing: 0.5px;
+    }
+    .btn-quiz-next:hover {
+        background: var(--dove-blue-dark);
+        transform: translateY(-2px) scale(1.02);
+    }
+    .progress-bar-container {
+        width: 100%;
+        background: #e9eefa;
+        border-radius: 8px;
+        margin-bottom: 28px;
+        height: 18px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        animation: fadeInQuiz 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #b3d8fd 0%, #0073e6 100%);
+        border-radius: 8px;
+        text-align: right;
+        line-height: 18px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.95em;
+        transition: width 0.5s cubic-bezier(.4,0,.2,1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        padding-right: 12px;
+        letter-spacing: 0.5px;
+    }
+    /* Animated slider for Q2 */
+    .form-group {
+        margin: 30px 0 10px 0;
+        text-align: center;
+    }
+    input[type="range"].form-control-range {
+        width: 90%;
+        margin: 0 auto 10px auto;
+        display: block;
+        accent-color: var(--dove-blue);
+        background: transparent;
+        height: 6px;
+        border-radius: 3px;
+        transition: box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    input[type="range"].form-control-range:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--dove-blue);
+    }
+    .slider-value {
+        font-size: 1.1em;
+        color: var(--dove-blue-dark);
+        font-weight: 600;
+        margin-top: 8px;
+        letter-spacing: 0.5px;
+        animation: fadeInQuiz 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .file-upload {
+        border: 2.5px dashed var(--dove-blue);
+        padding: 32px 18px;
+        border-radius: 14px;
+        background: #f8faff;
+        text-align: center;
+        margin-bottom: 18px;
+        transition: border-color 0.2s, background 0.2s;
+        cursor: pointer;
+        position: relative;
+        animation: fadeInQuiz 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .file-upload:hover {
+        border-color: var(--dove-blue-dark);
+        background: #e9f5ff;
+    }
+    .file-upload .upload-icon {
+        font-size: 3.2em;
+        color: var(--dove-blue);
+        margin-bottom: 12px;
+        animation: bounceIn 1s;
+    }
+    @keyframes bounceIn {
+        0% { transform: scale(0.7); opacity: 0.5; }
+        60% { transform: scale(1.15); opacity: 1; }
+        100% { transform: scale(1); }
+    }
+    .file-upload h3 {
+        margin: 0 0 8px 0;
+        color: var(--dove-blue-dark);
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+    .file-upload p {
+        color: var(--dove-text-light);
+        font-size: 0.98em;
+        margin-bottom: 8px;
+    }
+    .uploaded-quiz-image-preview {
+        max-width: 200px;
+        max-height: 200px;
+        margin: 20px auto 10px auto;
+        display: block;
+        border-radius: 10px;
+        border: 1.5px solid #bcd;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+        animation: fadeInQuiz 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .file-upload-wide {
+        border: 2.5px dashed #bcd6f6;
+        padding: 48px 18px;
+        border-radius: 16px;
+        background: #fcfdff;
+        text-align: center;
+        margin-bottom: 18px;
+        transition: border-color 0.2s, background 0.2s;
+        cursor: pointer;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        min-height: 260px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+    .file-upload-wide:hover {
+        border-color: #0073e6;
+        background: #f5faff;
+    }
+    .file-upload-wide .upload-icon {
+        font-size: 3.5em;
+        color: #0073e6;
+        margin-bottom: 18px;
+        animation: bounceIn 1s;
+    }
+    .file-upload-wide h3 {
+        margin: 0 0 10px 0;
+        color: #222b45;
+        font-size: 1.5em;
+        font-weight: 700;
+    }
+    .file-upload-wide p {
+        color: #6B7280;
+        font-size: 1.08em;
+        margin-bottom: 6px;
+    }
+    .file-upload-wide .small-text {
+        font-size: 0.98em;
+        color: #6B7280;
+        margin-top: 8px;
+    }
+    .file-upload-wide input[type="file"] {
+        display: none;
+    }
+    .file-upload-wide .uploaded-quiz-image-preview {
+        max-width: 180px;
+        max-height: 180px;
+        margin: 18px auto 0 auto;
+        display: block;
+        border-radius: 10px;
+        border: 1.5px solid #bcd;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+        animation: fadeInQuiz 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .mini-upload-preview {
+        display: block;
+        margin: 16px auto 0 auto;
+        width: 72px;
+        height: 72px;
+        border-radius: 16px;
+        border: 1.5px solid #bcd;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        background: #fff;
+        object-fit: cover;
+    }
+    @media (max-width: 600px) {
+        .quiz-container {
+            padding: 18px 4vw;
+        }
+        .options-list {
+            flex-direction: column;
+            gap: 14px;
+        }
+        .options-list li {
+            min-width: 0;
+            max-width: 100%;
+            height: 60px;
+        }
+        .options-list label {
+            min-width: 0;
+            max-width: 100%;
+            font-size: 1rem;
+            height: 60px;
+            padding: 0 8px;
+        }
+        .user-images-summary {
+            flex-direction: column;
+            gap: 18px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="quiz-container card">
+    <div class="quiz-question">
+        <h2>{{ question_data.text.split('!')[0] if question_data.type == 'welcome' else ('Question ' + (current_step -1) ~ '/' ~ (total_steps -1) ) }}</h2>
+        
+        {% if question_data.type != 'welcome' and total_steps > 1 %}
+            <div class="progress-bar-container">
+                {% set progress = ((current_step -1) / (total_steps-1)) * 100 %}
+                <div class="progress-bar-fill" style="width: {{ progress }}%;">{{ progress|round(0) }}%</div>
+            </div>
+        {% endif %}
+
+        <p class="question-text">{{ question_data.text if question_data.type != 'welcome' else question_data.text.split('! ', 1)[1] }}</p>
+
+        <form method="POST" action="{{ url_for('quiz') }}" enctype="multipart/form-data">
+            {% if question_data.type == 'welcome' %}
+                <button type="submit" class="btn btn-primary btn-lg btn-quiz-next">{{ question_data.button_text }}</button>
+            {% elif question_data.type == 'multiple_choice' %}
+                <ul class="options-list">
+                    {% for value, text in question_data.options.items() %}
+                        <li>
+                            <label>
+                                <input type="radio" name="{{ question_data.name }}" value="{{ value }}" required onclick="selectCard(this)"> 
+                                {{ text }}
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button type="submit" class="btn btn-primary btn-quiz-next">Next <i class="fas fa-arrow-right"></i></button>
+                <script>
+                function selectCard(input) {
+                    // Remove selected from all labels
+                    document.querySelectorAll('.options-list label').forEach(function(label) {
+                        label.classList.remove('selected');
+                    });
+                    // Add selected to the clicked label
+                    if(input.checked) {
+                        input.parentElement.classList.add('selected');
+                    }
+                }
+                </script>
+            {% elif question_data.type == 'slider' %}
+                <div class="form-group">
+                    <input type="range" class="form-control-range" name="{{ question_data.name }}" min="0" max="{{ question_data.options|length - 1 }}" value="{{ question_data.options|length // 2 }}" id="{{ question_data.name }}_slider" required>
+                    <div class="d-flex justify-content-between">
+                        {% for value, text in question_data.options.items() %}
+                            <small>{{ text }}</small>
+                        {% endfor %}
+                    </div>
+                     <p class="text-center mt-2">Selected: <span id="{{ question_data.name }}_value">{{ question_data.options[(question_data.options|length // 2)|string] }}</span></p>
+                </div>
+                <button type="submit" class="btn btn-primary btn-quiz-next">Next <i class="fas fa-arrow-right"></i></button>
+                 <script>
+                    const slider_{{ question_data.name }} = document.getElementById('{{ question_data.name }}_slider');
+                    const display_{{ question_data.name }} = document.getElementById('{{ question_data.name }}_value');
+                    const options_{{ question_data.name }} = {{ question_data.options|tojson }};
+                    slider_{{ question_data.name }}.oninput = function() {
+                        display_{{ question_data.name }}.textContent = options_{{ question_data.name }}[this.value];
+                    }
+                </script>
+            {% elif question_data.type == 'image_upload' %}
+                <label class="file-upload-wide">
+                    <img id="quizImagePreview" class="mini-upload-preview" style="display:none;" alt="Mini Preview" />
+                    <i id="quizUploadIcon" class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <h3 id="quizUploadTitle">Upload {{ 'Face' if 'skin' in question_data.name else 'Hair' }} Image</h3>
+                    <p id="quizUploadText">Click here to select an image or drag and drop</p>
+                    <p class="small-text">Supports: JPG, JPEG, PNG (Max 16MB)</p>
+                    <input type="file" name="image" accept=".jpg,.jpeg,.png" required onchange="previewImage(event, 'quizImagePreview', 'quizUploadIcon', 'quizUploadTitle', 'quizUploadText')">
+                </label>
+                <button type="submit" class="btn btn-primary btn-quiz-next">Upload and Continue <i class="fas fa-arrow-right"></i></button>
+                <script>
+                    function previewImage(event, previewId, iconId, titleId, textId) {
+                        const preview = document.getElementById(previewId);
+                        if(event.target.files[0]) {
+                            const reader = new FileReader();
+                            reader.onload = function(){
+                                preview.src = reader.result;
+                                preview.style.display = 'block';
+                            }
+                            reader.readAsDataURL(event.target.files[0]);
+                        } else {
+                            preview.style.display = 'none';
+                        }
+                    }
+                </script>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %} 

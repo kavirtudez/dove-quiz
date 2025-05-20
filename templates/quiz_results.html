@@ -1,0 +1,355 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Personalized Quiz Results{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        background-color: #f0f2f5; /* Light background for the page */
+    }
+    .results-container {
+        max-width: 850px;
+        margin: 30px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
+    }
+    .results-container h1.main-title {
+        color: var(--primary-color, #007bff);
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+    .results-container h1 .fa-award {
+        color: #ffc107; /* Gold color for awards */
+    }
+
+    .persona-section {
+        text-align: center;
+        padding: 25px;
+        margin-bottom: 30px;
+        background-color: #e9f5ff; /* Light blue for persona */
+        border-radius: 12px;
+        border: 1px solid #bde0fe;
+    }
+    .persona-section h2 {
+        color: var(--primary-color, #0056b3);
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+    .persona-section .persona-description,
+    .persona-section .persona-regimen,
+    .persona-section .persona-fun-fact,
+    .persona-section .persona-shareable {
+        font-size: 1.1em;
+        color: #333;
+        margin-bottom: 15px;
+    }
+    .persona-section .persona-regimen strong,
+    .persona-section .persona-fun-fact strong,
+    .persona-section .persona-shareable strong {
+        color: var(--secondary-color, #5a6268);
+    }
+    .persona-section .persona-fun-fact em {
+        font-style: italic;
+    }
+    .share-buttons a {
+        margin: 0 8px;
+        font-size: 1.8em;
+        color: var(--primary-color, #007bff);
+        transition: color 0.3s ease;
+    }
+    .share-buttons a:hover {
+        color: var(--secondary-color, #0056b3);
+    }
+
+    .recommendation-section {
+        margin-bottom: 30px;
+        padding: 25px;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        border: 1px solid #dee2e6;
+    }
+    .recommendation-section h2 {
+        color: var(--secondary-color, #5a6268);
+        border-bottom: 2px solid var(--secondary-color, #5a6268);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.8em;
+    }
+    .recommendation-section .product-list ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    .recommendation-section .product-list ul li {
+        padding: 10px 0;
+        font-size: 1.1em;
+        border-bottom: 1px dashed #eee;
+    }
+    .recommendation-section .product-list ul li:last-child {
+        border-bottom: none;
+    }
+    .recommendation-section .product-list p {
+        font-size: 1.1em;
+        line-height: 1.7;
+    }
+    .recommendation-section .product-list p strong {
+        color: var(--primary-color, #007bff);
+    }
+    .product-card p.product-desc {
+        font-size: 0.8em; 
+        color: #555; 
+        margin-top: 8px; 
+        line-height: 1.4;
+        min-height: 50px; /* Adjust as needed for 2-3 lines */
+        overflow: hidden;
+    }
+    
+    .analysis-details {
+        font-size: 0.9em;
+        color: #555;
+        margin-top: 5px;
+        padding-left: 10px;
+    }
+
+    .user-answers-summary {
+        margin-top: 40px;
+        padding: 25px;
+        background-color: #f0f4f8; /* Light grey-blue */
+        border-radius: 12px;
+        border: 1px solid #d6e0ea;
+    }
+    .user-answers-summary h3 {
+        margin-bottom: 20px;
+        color: var(--primary-color, #0056b3);
+        font-size: 1.6em;
+        text-align: center;
+    }
+    .user-answers-summary p {
+        font-size: 1.05em;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+    .user-answers-summary p strong {
+        color: #333;
+        margin-right: 8px;
+    }
+    .btn-container {
+        text-align: center;
+        margin-top: 35px;
+    }
+    .results-container .btn {
+        padding: 12px 28px;
+        font-size: 1.15em;
+        border-radius: 25px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .results-container .btn-primary {
+        background-color: var(--primary-color, #007bff);
+        border-color: var(--primary-color, #007bff);
+    }
+    .results-container .btn-primary:hover {
+        background-color: var(--secondary-color, #0056b3);
+        border-color: var(--secondary-color, #0056b3);
+        transform: translateY(-2px);
+    }
+     .results-container .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    .results-container .btn-secondary:hover {
+        background-color: #545b62;
+        border-color: #545b62;
+        transform: translateY(-2px);
+    }
+    .btn-retake-white {
+        background-color: #fff;
+        border: 2px solid var(--dove-blue, #0073e6);
+        color: var(--dove-blue, #0073e6);
+    }
+    .btn-retake-white:hover {
+        background-color: var(--dove-blue, #0073e6);
+        border-color: var(--dove-blue-dark, #005cb3);
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="results-container">
+    <h1 class="main-title"><i class="fas fa-award"></i> Your Personalized Results <i class="fas fa-award"></i></h1>
+
+    {# Display scenario message only if it exists and is not the specific fallback message #}
+    {% if scenario_message %}
+    <div class="alert alert-info" style="background: linear-gradient(90deg, #e0f7fa, #e3f2fd); color: #0056b3; border-radius: 10px; border: 1px solid #bde0fe; padding: 18px 22px; margin-bottom: 25px; font-size: 1.13em; font-weight: 500;">
+        <i class="fas fa-lightbulb"></i> {{ scenario_message|replace('\n', '<br>')|safe }}
+    </div>
+    {% endif %}
+
+    {% if persona %}
+    <div class="persona-section">
+        {% set persona_img_map = {
+            'Radiant Nurturer': url_for('static', filename='images/radiant nurturer.png'),
+            'The Hustler': url_for('static', filename='images/hustler.png'),
+            'The Carefree Spirit': url_for('static', filename='images/carefree.png'),
+            'The Thoughtful Planner': url_for('static', filename='images/thoughtful.png')
+        } %}
+        {% set persona_type_map = {
+            'Radiant Nurturer': 'Radiant Nurturer',
+            'The Hustler': 'The Hustler',
+            'The Carefree Spirit': 'The Carefree Spirit',
+            'The Thoughtful Planner': 'The Thoughtful Planner'
+        } %}
+        {% set current_persona_img = persona_img_map.get(persona.name) %}
+        {% set current_persona_type = persona_type_map.get(persona.name, persona.name) %}
+
+        {% if current_persona_img %}
+            <img src="{{ current_persona_img }}" alt="{{ current_persona_type }} character" style="max-width: 220px; margin-bottom: 18px;">
+        {% endif %}
+        <h2>Meet Your Persona: {{ current_persona_type }}</h2>
+        <p class="persona-description">{{ persona.description }}</p>
+        <p class="persona-regimen"><strong>Recommended Products:</strong> {{ persona.regimen }}</p>
+        <p class="persona-fun-fact"><strong>Fun Fact:</strong> <em>{{ persona.fun_fact }}</em></p>
+        <p class="persona-shareable"><strong>Shareable Fact:</strong> "{{ persona.shareable_text }}"</p>
+        <div class="share-buttons">
+            <a href="https://twitter.com/intent/tweet?text={{ persona.shareable_text | urlencode }}" target="_blank" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url | urlencode }}&quote={{ persona.shareable_text | urlencode }}" target="_blank" title="Share on Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="whatsapp://send?text={{ persona.shareable_text | urlencode }} {{ request.url | urlencode }}" data-action="share/whatsapp/share" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="recommendation-section">
+        <h2><i class="fas fa-spa"></i> Your Tailored Hair Care</h2>
+        <p><strong>Identified Hair Type:</strong> 
+            {{ hair_type_detected if hair_type_detected else 'Not classified by image. Using quiz selection.' }}
+            {% if classified_hair_type_prob and hair_type_detected %}
+                ({{ (classified_hair_type_prob * 100) | round(1) }}% confidence)
+            {% endif %}
+        </p>
+        <p><strong>Hair Fall Risk:</strong> {{ hair_fall_risk }}</p>
+        
+        {% if hair_products and (hair_products.shampoo or hair_products.conditioner) %}
+            <div class="product-images-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0;">
+                {% if hair_products.shampoo and hair_products.shampoo.name %}
+                    {% set shampoo_img_filename = {
+                        'Dove Amplified Textures Hydrating Cleanser': 'Dove Amplified Textures Hydrating Cleanser.jpg',
+                        'Dove Daily Moisture Shampoo': 'dove daily moisture shampoo.jpg',
+                        'Dove Damage Therapy Shampoo': 'dove damage therapy shampoo.jpg',
+                        'Dove DermaCare Scalp Anti-Dandruff Shampoo': 'Dove DermaCare Scalp Anti-Dandruff Shampoo.png',
+                        'Dove Intensive Repair Shampoo': 'dove intensive repair.jpg',
+                        'Dove Nourishing Oil Care Shampoo': 'Dove Nourishing Oil Care Shampoo.jpg',
+                        'Dove Nutritive Solutions Intensive Repair Shampoo': 'Dove Nutritive Solutions Intensive Repair Shampoo.png',
+                        'Dove Volume & Fullness Shampoo': 'dove volume and fullness shampoo.jpg',
+                        'Dove Nutritive Solutions Intense Repair Shampoo': 'Dove Nutritive Solutions Intensive Repair Shampoo.png',
+                        'Dove Hair Therapy Daily Moisture Shampoo': 'dove daily moisture shampoo.jpg'
+                    }.get(hair_products.shampoo.name, '') %}
+
+                    {% if shampoo_img_filename %}
+                    <div class="product-card" style="width: 180px; text-align: center; background: #f8f9fa; border-radius: 8px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+                        <img src="{{ url_for('static', filename='images/dove products/' + shampoo_img_filename) }}" alt="{{ hair_products.shampoo.name }}" style="max-width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px;">
+                        <div>
+                            <p style="font-size: 0.9em; margin: 0 0 5px 0; font-weight: 500; color: #0056b3;">{{ hair_products.shampoo.name }}</p>
+                            {% if hair_products.shampoo.desc %}<p class="product-desc">{{ hair_products.shampoo.desc }}</p>{% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
+
+                {% if hair_products.conditioner and hair_products.conditioner.name %}
+                    {% set conditioner_img_filename = {
+                        'Dove Amplified Textures Hydrating Conditioner': 'Dove Amplified Textures Hydrating Conditioner.jpg',
+                        'Dove Daily Moisture Conditioner': 'dove daily moisture conditioner.jpg',
+                        'Dove Damage Therapy Conditioner': 'Dove Damage Therapy Conditioner.png',
+                        'Dove DermaCare Scalp Anti-Dandruff Conditioner': 'Dove DermaCare Scalp Anti-Dandruff Conditioner.jpg',
+                        'Dove Hair Therapy Daily Moisture Conditioner': 'dove hair therapy daily moisture condi.jpg',
+                        'Dove Intensive Repair Conditioner': 'dove intensive repair conditioner.jpg',
+                        'Dove Nourishing Oil Care Conditioner': 'Dove Nourishing Oil Care Conditioner.jpg',
+                        'Dove Nutritive Solutions Intensive Repair Conditioner': 'Dove Nutritive Solutions Intensive Repair Conditioner.jpg',
+                        'Dove Volume & Fullness Conditioner': 'dove volume and fullness boosting conditioner.jpg',
+                        'Dove Nutritive Solutions Intense Repair Conditioner': 'Dove Nutritive Solutions Intensive Repair Conditioner.jpg'
+                    }.get(hair_products.conditioner.name, '') %}
+
+                    {% if conditioner_img_filename %}
+                    <div class="product-card" style="width: 180px; text-align: center; background: #f8f9fa; border-radius: 8px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+                        <img src="{{ url_for('static', filename='images/dove products/' + conditioner_img_filename) }}" alt="{{ hair_products.conditioner.name }}" style="max-width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px;">
+                        <div>
+                           <p style="font-size: 0.9em; margin: 0 0 5px 0; font-weight: 500; color: #0056b3;">{{ hair_products.conditioner.name }}</p>
+                           {% if hair_products.conditioner.desc %}<p class="product-desc">{{ hair_products.conditioner.desc }}</p>{% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <div class="product-list">
+                <ul>
+                    {% if hair_products.shampoo and hair_products.shampoo.name %}<li><strong>Shampoo:</strong> {{ hair_products.shampoo.name }}</li>{% endif %}
+                    {% if hair_products.conditioner and hair_products.conditioner.name %}<li><strong>Conditioner:</strong> {{ hair_products.conditioner.name }}</li>{% endif %}
+                    {% if hair_products.extra_care %}<li><strong>Extra Care:</strong> {{ hair_products.extra_care }}</li>{% endif %}
+                </ul>
+            </div>
+        {% else %}
+            <p>Could not determine a specific hair care recommendation.</p>
+        {% endif %}
+    </div>
+
+    <div class="recommendation-section">
+        <h2><i class="fas fa-hand-sparkles"></i> Your Ideal Skin Care</h2>
+        <p><strong>Identified Skin Type:</strong> 
+            {{ skin_type_detected if skin_type_detected else 'Not classified by image. Using quiz selection.' }}
+        </p>
+        
+        {% if skin_products and skin_products.cleanser %}
+            <div class="product-images-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0;">
+                {% set cleanser_img_filename = {
+                    'Dove Beauty Bar': 'Dove Beauty Bar.jpg',
+                    'Dove Men+Care Oil Control Bar': 'Dove Men+Care Oil Control Bar.png',
+                    'Dove Sensitive Skin Beauty Bar': 'dove sensisitive skin beauty bar.jpg'
+                }.get(skin_products.cleanser, '') %}
+
+                {% if cleanser_img_filename %}
+                <div class="product-card" style="width: 180px; text-align: center; background: #f8f9fa; border-radius: 8px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+                    <img src="{{ url_for('static', filename='images/dove products/' + cleanser_img_filename) }}" alt="{{ skin_products.cleanser }}" style="max-width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px;">
+                    <div>
+                        <p style="font-size: 0.9em; margin: 0 0 5px 0; font-weight: 500; color: #0056b3;">{{ skin_products.cleanser }}</p>
+                        {% if skin_message %}<p class="product-desc">{{ skin_message }}</p>{% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        
+            <div class="product-list">
+                <ul>
+                    <li><strong>Cleanser/Soap:</strong> {{ skin_products.cleanser }}</li>
+                    {% if skin_products.moisturizer %}<li><strong>Moisturizer:</strong> {{ skin_products.moisturizer }}</li>{% endif %}
+                </ul>
+            </div>
+        {% else %}
+            <p>Could not determine a specific skin care recommendation.</p>
+        {% endif %}
+    </div>
+
+    {# Remove the quiz summary and add user image display #}
+    <div class="user-images-summary" style="display: flex; justify-content: center; align-items: flex-end; gap: 40px; margin: 40px 0 20px 0;">
+        <div style="text-align: center;">
+            <img src="{{ url_for('static', filename='uploads/hair_image.png') }}" alt="Uploaded Hair Image" style="max-width: 180px; max-height: 180px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border: 1px solid #ccc; background: #fff;">
+            <div style="margin-top: 10px; font-weight: 600; color: var(--dove-blue-dark); font-size: 1.1em;">{{ hair_type_detected }}</div>
+        </div>
+        <div style="text-align: center;">
+            <img src="{{ url_for('static', filename='uploads/skin_image.png') }}" alt="Uploaded Skin Image" style="max-width: 180px; max-height: 180px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border: 1px solid #ccc; background: #fff;">
+            <div style="margin-top: 10px; font-weight: 600; color: var(--dove-blue-dark); font-size: 1.1em;">{{ skin_type_detected }}</div>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <a href="{{ url_for('quiz', retake='true') }}" class="btn btn-retake-white"><i class="fas fa-redo"></i> Retake Quiz</a>
+        <a href="{{ url_for('home') }}" class="btn btn-primary" style="margin-left: 10px;"><i class="fas fa-home"></i> Back to Home</a>
+    </div>
+
+</div>
+{% endblock %} 
