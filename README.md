@@ -2,6 +2,8 @@ FOR UNILEVER 2025
 
 <img src="image.png" alt="AI-Powered Dove Glow" width="100%">
 
+[SEE PROJECT DEMONSTRATION](https://drive.google.com/file/d/1jr8YEaT7Km3C2ySwNCnSmFVVLjE6jrqq/view?usp=sharing)
+
 # AI-Powered Dove Glow - Your Personalized Hair & Skin Care Assistant
 
 Welcome to AI-Powered Dove Glow! This Flask-based web application uses smart technology to analyze your hair and skin, guiding you to a personalized Dove care regimen. Discover the perfect Dove products tailored to your unique needs through our interactive quiz, AI-powered analysis, and personalized advice from our AI chatbot assistant.
