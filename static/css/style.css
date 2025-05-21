@@ -872,4 +872,166 @@ footer {
 }
 
 /* Remove old conflicting styles if any were missed - ensure this is the end */
-/* Styles from the very beginning of the old file that might conflict are now removed by replacing the content */ 
+/* Styles from the very beginning of the old file that might conflict are now removed by replacing the content */
+
+/* Tita Glow Chatbot Styles */
+#tita-glow-chat-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--dove-blue);
+    border-radius: 50%;
+    box-shadow: var(--box-shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: transform 0.2s ease-in-out;
+}
+
+#tita-glow-chat-button:hover {
+    transform: scale(1.1);
+}
+
+#tita-glow-chat-button img {
+    width: 50px; /* Slightly smaller than button to give a border effect */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#tita-glow-chat-window {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 370px;
+    max-height: 80vh;
+    background-color: var(--dove-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-lg);
+    display: flex; /* Changed from none to flex by JS */
+    flex-direction: column;
+    z-index: 1001;
+    overflow: hidden; /* Prevents content from spilling during animations */
+    border: 1px solid var(--dove-grey-medium);
+}
+
+.chat-header {
+    background-color: var(--dove-blue);
+    color: var(--dove-white);
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.chat-header span {
+    display: flex;
+    align-items: center;
+}
+
+#close-chat-button {
+    background: none;
+    border: none;
+    color: var(--dove-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 5px;
+}
+#close-chat-button:hover {
+    opacity: 0.8;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--dove-grey-light);
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: var(--border-radius-md);
+    max-width: 85%;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+.user-message {
+    background-color: var(--dove-blue);
+    color: var(--dove-white);
+    align-self: flex-end;
+    border-bottom-right-radius: var(--border-radius-sm); /* Tail effect */
+}
+
+.model-message {
+    background-color: #e9e9eb; /* Lighter grey for bot messages */
+    color: var(--dove-text);
+    align-self: flex-start;
+    border-bottom-left-radius: var(--border-radius-sm); /* Tail effect */
+}
+
+.chat-input-area {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid var(--dove-grey-medium);
+    background-color: var(--dove-white);
+}
+
+#chat-input {
+    flex-grow: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--dove-grey-medium);
+    border-radius: var(--border-radius-md);
+    margin-right: 8px;
+    font-size: 0.95rem;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: var(--dove-blue);
+    box-shadow: 0 0 0 2px rgba(0, 115, 230, 0.2);
+}
+
+#send-chat-button {
+    background-color: var(--dove-blue);
+    color: var(--dove-white);
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: 0 15px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#send-chat-button:hover {
+    background-color: var(--dove-blue-dark);
+}
+
+#send-chat-button i {
+    margin: 0; /* Reset margin if FontAwesome adds some */
+}
+
+/* Responsive adjustments for chat window if needed */
+@media (max-width: 480px) {
+    #tita-glow-chat-window {
+        width: calc(100% - 20px); /* Full width with small margin */
+        max-height: 70vh;
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+    }
+    .message {
+        max-width: 90%;
+    }
+} 

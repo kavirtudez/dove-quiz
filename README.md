@@ -1,7 +1,10 @@
 FOR UNILEVER 2025 
-# Hair & Skin Detector AI - Your Personalized Dove Guide
 
-Welcome to the Hair & Skin Detector AI! This Flask-based web application uses smart technology to analyze your hair and skin, guiding you to a personalized Dove care regimen. Discover the perfect Dove products tailored to your unique needs through our interactive quiz and AI-powered analysis.
+<img src="image.png" alt="AI-Powered Dove Glow" width="100%">
+
+# AI-Powered Dove Glow - Your Personalized Hair & Skin Care Assistant
+
+Welcome to AI-Powered Dove Glow! This Flask-based web application uses smart technology to analyze your hair and skin, guiding you to a personalized Dove care regimen. Discover the perfect Dove products tailored to your unique needs through our interactive quiz, AI-powered analysis, and personalized advice from our AI chatbot assistant.
 
 ## Features 
 
@@ -21,6 +24,13 @@ Welcome to the Hair & Skin Detector AI! This Flask-based web application uses sm
     *   Based on your comprehensive answers, we\'ll unveil your unique hair/skin persona and recommend a curated list of Dove shampoos, conditioners, and soaps designed just for you!
     *   Discover your "Dream Strands" and achieve glowing skin with Dove.
 
+4.  **Tita Glow AI Chatbot**:
+    *   Chat with our friendly AI assistant "Tita Glow" for personalized hair and skin care advice.
+    *   Get detailed information about Dove products best suited for your specific needs.
+    *   Ask questions about hair care tips, skin care routines, and Dove product recommendations.
+    *   Receive expert advice in a conversational, engaging format with a personal touch.
+    *   Access Tita Glow through the chat button available on any page of the application.
+
 ## How It Works (Focus on the Quiz)
 
 1.  **Start the Quiz**: Navigate to the "Quiz" section from the homepage or navigation bar.
@@ -28,6 +38,7 @@ Welcome to the Hair & Skin Detector AI! This Flask-based web application uses sm
 3.  **Upload Images (Optional/Integrated)**: For precise analysis, you might be prompted to upload photos for our AI to determine your hair and skin type.
 4.  **Get Your Persona & Recommendations**: Once the quiz is complete, you\'ll be assigned a unique care persona.
 5.  **Discover Your Dove Regimen**: Receive personalized recommendations for Dove shampoos, conditioners, and soaps that best suit your profile and persona.
+6.  **Chat with Tita Glow**: For more detailed advice, click the chat button to speak with our AI assistant who can provide customized recommendations.
 
 ## Project Structure
 
@@ -35,11 +46,13 @@ Welcome to the Hair & Skin Detector AI! This Flask-based web application uses sm
 Hair_Detector_Flask/
 │
 ├── app.py                # Main Flask application file
+├── gemini_chat.py        # Tita Glow AI chatbot functionality
 ├── utils.py              # Utility functions (e.g., model loading, image preprocessing)
 ├── requirements.txt      # Python dependencies
 ├── static/
 │   ├── css/              # Stylesheets (e.g., style.css)
 │   ├── js/               # JavaScript files (if any)
+│   ├── images/           # Images used in the application
 │   └── uploads/          # Folder for user-uploaded images
 │
 ├── templates/            # HTML templates
@@ -51,9 +64,8 @@ Hair_Detector_Flask/
 │   └── quiz_results.html # Page to display quiz results and Dove recommendations
 │
 └── models/               # Machine Learning model files
-    ├── hair_type_model.h5            # Hair type classification model (Updated Name)
-    └── skin_type/
-        └── skin_type_model.h5        # Skin type classification model (Updated Name)
+    ├── hair_type_model.h5            # Hair type classification model
+    └── skin_type_model.h5            # Skin type classification model
 ```
 
 ## Setup and Installation
@@ -79,16 +91,17 @@ Hair_Detector_Flask/
 
 4.  **Run the application**:
     ```bash
-    flask run
+    python app.py
     ```
     The application will typically be available at `http://127.0.0.1:5000/`.
 
 ## Technology Stack
 
 *   **Backend**: Flask (Python)
-*   **Machine Learning**: TensorFlow, Keras, Scikit-learn
-*   **Frontend**: HTML, CSS (potentially JavaScript for interactivity)
+*   **Machine Learning**: TensorFlow, Keras
+*   **AI Chatbot**: Google Gemini 1.5 Flash API
+*   **Frontend**: HTML, CSS, JavaScript
 
 ## Discover Your Best Hair and Skin with Dove!
 
-Our goal is to make understanding your hair and skin needs simple and to connect you with the Dove products that will make you look and feel your best. Take the quiz and start your journey to healthier hair and skin today!
+Our goal is to make understanding your hair and skin needs simple and to connect you with the Dove products that will make you look and feel your best. Take the quiz, chat with Tita Glow, and start your journey to healthier hair and skin today!

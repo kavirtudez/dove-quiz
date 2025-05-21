@@ -17,34 +17,13 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
-    <style>
-        /* Navbar logo image style */
-        .navbar-logo-img {
-            height: 30px; /* Adjust as needed */
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-        /* Navbar hover effects */
-        .header-container .logo,
-        .header-container nav ul li a {
-            text-decoration: none; /* Remove default underline */
-            padding-bottom: 2px; /* Space for the underline */
-            transition: border-bottom-color 0.3s ease-in-out;
-        }
-        .header-container .logo:hover,
-        .header-container nav ul li a:hover {
-            border-bottom: 2px solid white;
-        }
-    </style>
-    
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header>
         <div class="header-container">
             <a href="{{ url_for('home') }}" class="logo">
-                <img src="{{ url_for('static', filename='images/title logo.png') }}" alt="Logo" class="navbar-logo-img">
-                AI-Powered Dove Glow
+                <i class="fas fa-cut"></i> AI-Powered Dove Glow
             </a>
             <nav>
                 <ul>
@@ -78,9 +57,209 @@
     <footer>
         <div class="footer-content">
             <p>&copy; 2025 AI-Powered Dove Glow. FOR UNILEVER. All Rights Reserved.</p>
-            <p>Developed with <i class="fas fa-heart"></i> by Virtudez x AI Engineers for Unilever</p>
+            <p>Developed with <i class="fas fa-heart"></i> by Virtudez, Libao, & Cos for Unilever</p>
         </div>
     </footer>
+
+    <!-- Tita Glow Chatbot -->
+    <div id="tita-glow-chat-button" class="bounce">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Chat with Tita Glow">
+    </div>
+
+    <div id="tita-glow-chat-window" class="slide-in" style="display: none;">
+        <div class="chat-header">
+            <span>Tita Glow ✨</span>
+            <button id="close-chat-button">&times;</button>
+        </div>
+        <div id="chat-messages">
+            <!-- Chat messages will appear here -->
+            <div class="message model-message">Hi sweetie! I'm Tita Glow. How can I help you glow today?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask Tita Glow...">
+            <button id="send-chat-button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <!-- End Tita Glow Chatbot -->
+    
+    <style>
+        /* Chat window styles */
+        #tita-glow-chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        #tita-glow-chat-button img {
+            width: 40px;
+            height: auto;
+        }
+        
+        #tita-glow-chat-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            padding: 15px;
+            background: linear-gradient(90deg, #3498db, #8e44ad);
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #close-chat-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            max-width: 80%;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        
+        .user-message {
+            background-color: #e6f7ff;
+            color: #333;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .model-message {
+            background-color: #f0f2f5;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .chat-input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #e6e6e6;
+        }
+        
+        #chat-input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 10px 15px;
+            outline: none;
+        }
+        
+        #send-chat-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        #send-chat-button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Animation classes */
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.3s forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background-color: #999;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -122,6 +301,112 @@
                     if (icon) icon.style.display = 'block';
                     if (title) title.style.display = 'block';
                     if (text) text.style.display = 'block';
+                }
+            }
+
+            // Tita Glow Chatbot Logic
+            const chatButton = document.getElementById('tita-glow-chat-button');
+            const chatWindow = document.getElementById('tita-glow-chat-window');
+            const closeChatButton = document.getElementById('close-chat-button');
+            const sendChatButton = document.getElementById('send-chat-button');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessagesDiv = document.getElementById('chat-messages');
+
+            let chatHistory = []; // To store conversation history [{role: 'user'/'model', text: '...'}
+
+            chatButton.addEventListener('click', () => {
+                chatWindow.style.display = 'flex'; // Changed to flex for proper layout if it's a flex container
+                chatButton.style.display = 'none';
+            });
+
+            closeChatButton.addEventListener('click', () => {
+                chatWindow.style.display = 'none';
+                chatButton.style.display = 'block'; // Or 'flex' or 'inline-block' depending on its original display
+            });
+
+            sendChatButton.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            function appendMessage(sender, text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'model-message', 'fade-in');
+                
+                // Convert markdown-style formatting to HTML
+                if (sender === 'model') {
+                    // Replace ** for bold
+                    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    // Replace * for italic
+                    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    // Replace bullets
+                    text = text.replace(/• (.*)/g, '<div class="bullet-point">•&nbsp;$1</div>');
+                    // Replace line breaks with <br>
+                    text = text.replace(/\n/g, '<br>');
+                    
+                    messageDiv.innerHTML = text;
+                } else {
+                    messageDiv.textContent = text;
+                }
+                
+                chatMessagesDiv.appendChild(messageDiv);
+                chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight; // Scroll to bottom
+            }
+
+            async function sendMessage() {
+                const userMessageText = chatInput.value.trim();
+                if (userMessageText === '') return;
+
+                appendMessage('user', userMessageText);
+                chatHistory.push({ role: 'user', text: userMessageText });
+                chatInput.value = '';
+                
+                // Add typing indicator instead of text message
+                const typingIndicator = document.createElement('div');
+                typingIndicator.classList.add('typing-indicator', 'model-message');
+                typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+                chatMessagesDiv.appendChild(typingIndicator);
+                chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+
+
+                try {
+                    const response = await fetch("{{ url_for('chat_with_tita_glow') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: userMessageText,
+                            history: chatHistory.slice(0, -1) // Send history *before* this user message
+                        }),
+                    });
+
+                    // Remove typing indicator
+                    chatMessagesDiv.removeChild(typingIndicator);
+
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({ detail: "Unknown error occurred" }));
+                        console.error('Chat API error:', errorData);
+                        appendMessage('model', `Sorry, an error occurred: ${errorData.detail || response.statusText}`);
+                        chatHistory.push({ role: 'model', text: `Sorry, an error occurred: ${errorData.detail || response.statusText}` });
+                        return;
+                    }
+
+                    const data = await response.json();
+                    const botResponseText = data.reply;
+                    appendMessage('model', botResponseText);
+                    chatHistory.push({ role: 'model', text: botResponseText });
+
+                } catch (error) {
+                    // Remove typing indicator if it's still there
+                    if (chatMessagesDiv.querySelector('.typing-indicator')) {
+                        chatMessagesDiv.removeChild(chatMessagesDiv.querySelector('.typing-indicator'));
+                    }
+                    console.error('Failed to send message:', error);
+                    appendMessage('model', 'Oh no! Connection to Tita Glow failed. Please try again.');
+                    // Optionally add this error to history or decide how to handle
                 }
             }
         });

@@ -10,7 +10,6 @@ import shutil
 from werkzeug.utils import secure_filename
 # from sklearn.ensemble import RandomForestClassifier # Removed as fallback hairfall model is no longer used
 from utils import load_skin_model, predict_skin_type
-from gemini_chat import get_tita_glow_response # Import Tita Glow's chat function
 
 app = Flask(__name__)
 app.secret_key = "hairtracker_flask_secret_key"
@@ -701,32 +700,7 @@ def quiz_results():
                            classified_skin_type_prob=answers.get('classified_skin_type_prob')
                         )
 
-@app.route('/chat_with_tita_glow', methods=['POST'])
-def chat_with_tita_glow():
-    data = request.get_json()
-    user_message = data.get('message')
-    conversation_history = data.get('history', []) # Frontend will send history
-
-    if not user_message:
-        return jsonify({"error": "No message provided"}), 400
-
-    # Ensure history is in the format expected by get_tita_glow_response 
-    # (list of dicts: {'role': 'user'/'model', 'text': '...'})
-    # The frontend should already format it this way.
-
-    try:
-        tita_response = get_tita_glow_response(user_message, conversation_history)
-        return jsonify({"reply": tita_response})
-    except Exception as e:
-        print(f"Error in /chat_with_tita_glow route: {e}")
-        return jsonify({"error": "Sorry, Tita Glow is a bit busy right now!"}), 500
-
-@app.route('/favicon.ico')
-def favicon():
-    return app.send_static_file('images/logo.png')
+@app.route('/favicon.ico')def favicon():    return app.send_static_file('images/logo.png')
 
 if __name__ == '__main__':
-    # Try with explicit host, different port, and reloader off
-    print("Attempting to start Flask server on http://0.0.0.0:5001...")
-    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
- 
+    app.run(debug=True) 
